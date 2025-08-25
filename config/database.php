@@ -57,12 +57,8 @@ return [
     'strict' => true,
     'engine' => null,
     'options' => extension_loaded('pdo_mysql') ? array_filter([
-        (env('AZURE_MYSQL_FLAG') === 'MYSQLI_CLIENT_SSL' || env('AZURE_DB_SSL_MODE'))
-            ? PDO::MYSQL_ATTR_SSL_CA
-            : null => (env('AZURE_MYSQL_FLAG') === 'MYSQLI_CLIENT_SSL' || env('AZURE_DB_SSL_MODE'))
-            ? storage_path('certs/BaltimoreCyberTrustRoot.crt.pem')
-            : null,
-    ]) : [],
+    PDO::MYSQL_ATTR_SSL_CA => storage_path('certs/BaltimoreCyberTrustRoot.crt.pem'),
+]) : [],
 ],
 
         'mariadb' => [
