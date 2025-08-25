@@ -15,6 +15,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'key' => env('APP_KEY', env('AZURE_APP_KEY')),
+'env' => env('APP_ENV', env('AZURE_APP_ENV', 'production')),
+'debug' => env('APP_DEBUG', env('AZURE_APP_DEBUG', false)),
+'url' => env('APP_URL', env('AZURE_APP_URL', 'http://localhost')),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -26,7 +30,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+   // 'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +43,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    //'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +56,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    //'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +101,7 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'key' => env('APP_KEY'),
+    //'key' => env('APP_KEY'),
 
     'previous_keys' => [
         ...array_filter(
