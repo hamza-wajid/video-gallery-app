@@ -42,27 +42,22 @@ return [
             'synchronous' => null,
         ],
 
-      'mysql' => [
+     'mysql' => [
     'driver' => 'mysql',
-    'host' => env('DB_HOST', env('AZURE_MYSQL_HOST')),
-    'port' => env('DB_PORT', env('AZURE_MYSQL_PORT', '3306')),
-    'database' => env('DB_DATABASE', env('AZURE_MYSQL_DBNAME')),
-    'username' => env('DB_USERNAME', env('AZURE_MYSQL_USERNAME')),
-    'password' => env('DB_PASSWORD', env('AZURE_MYSQL_PASSWORD')),
+    'host' => env('AZURE_MYSQL_HOST', '127.0.0.1'),
+    'port' => env('AZURE_MYSQL_PORT', '3306'),
+    'database' => env('AZURE_MYSQL_DBNAME', 'forge'),
+    'username' => env('AZURE_MYSQL_USERNAME', 'forge'),
+    'password' => env('AZURE_MYSQL_PASSWORD', ''),
     'unix_socket' => env('DB_SOCKET', ''),
     'charset' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     'prefix' => '',
-    'prefix_indexes' => true,
     'strict' => true,
     'engine' => null,
     'options' => extension_loaded('pdo_mysql') ? array_filter([
-        // If Azure requires SSL
-        (env('AZURE_MYSQL_FLAG') === 'MYSQLI_CLIENT_SSL' || env('AZURE_DB_SSL_MODE'))
-            ? PDO::MYSQL_ATTR_SSL_CA
-            : null => (env('AZURE_MYSQL_FLAG') === 'MYSQLI_CLIENT_SSL' || env('AZURE_DB_SSL_MODE'))
-            ? storage_path('certs/BaltimoreCyberTrustRoot.crt.pem')
-            : null,
+        PDO::MYSQL_ATTR_SSL_CA => env('DB_SSL_CA', '/home/site/wwwroot/storage/certs/azure-mysql-ca-combined.pem'),
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
     ]) : [],
 ],
 
