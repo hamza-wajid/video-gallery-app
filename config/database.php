@@ -42,7 +42,7 @@ return [
             'synchronous' => null,
         ],
 
-       'mysql' => [
+      'mysql' => [
     'driver' => 'mysql',
     'host' => env('DB_HOST', env('AZURE_MYSQL_HOST')),
     'port' => env('DB_PORT', env('AZURE_MYSQL_PORT', '3306')),
@@ -57,8 +57,13 @@ return [
     'strict' => true,
     'engine' => null,
     'options' => extension_loaded('pdo_mysql') ? array_filter([
-    PDO::MYSQL_ATTR_SSL_CA => storage_path('certs/BaltimoreCyberTrustRoot.crt.pem'),
-]) : [],
+        // If Azure requires SSL
+        (env('AZURE_MYSQL_FLAG') === 'MYSQLI_CLIENT_SSL' || env('AZURE_DB_SSL_MODE'))
+            ? PDO::MYSQL_ATTR_SSL_CA
+            : null => (env('AZURE_MYSQL_FLAG') === 'MYSQLI_CLIENT_SSL' || env('AZURE_DB_SSL_MODE'))
+            ? storage_path('certs/BaltimoreCyberTrustRoot.crt.pem')
+            : null,
+    ]) : [],
 ],
 
         'mariadb' => [
